@@ -36,29 +36,6 @@ public class AddressAPI {
 	@Autowired
 	private GeoLocationService locationService;
 	
-	@PostMapping
-	public ResponseEntity<AddressDTO> addAddress(@Valid @RequestBody AddressForm addressForm) throws ApiException, InterruptedException, IOException {
-		
-		if(addressForm.getId() != null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		if(addressForm.getLatitude() == null || addressForm.getLongitude() == null) {
-			LatLng latlng = locationService.getLatLong(addressForm);
-				
-			String lat = Double.toString(latlng.lat);
-			addressForm.setLatitude(lat);
-			String lng = Double.toString(latlng.lng);
-			addressForm.setLongitude(lng);
-			
-		}
-		
-		Address address = addressForm.toAddress();
-		Address inserted = addressService.insertAddress(address);
-		
-		return new ResponseEntity<>(new AddressDTO(inserted), HttpStatus.CREATED);
-	}
-	
 	@GetMapping
 	public ResponseEntity<List<AddressDTO>> getAllAddress() {
 		List<Address> addresses = addressService.getAll();
@@ -80,6 +57,29 @@ public class AddressAPI {
 		
 		addressDto = new AddressDTO(address);
 		return new ResponseEntity<>(addressDto, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<AddressDTO> addAddress(@Valid @RequestBody AddressForm addressForm) throws ApiException, InterruptedException, IOException {
+		
+		if(addressForm.getId() != null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		if(addressForm.getLatitude() == null || addressForm.getLongitude() == null) {
+			LatLng latlng = locationService.getLatLong(addressForm);
+				
+			String lat = Double.toString(latlng.lat);
+			addressForm.setLatitude(lat);
+			String lng = Double.toString(latlng.lng);
+			addressForm.setLongitude(lng);
+			
+		}
+		
+		Address address = addressForm.toAddress();
+		Address inserted = addressService.insertAddress(address);
+		
+		return new ResponseEntity<>(new AddressDTO(inserted), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("{id}")
