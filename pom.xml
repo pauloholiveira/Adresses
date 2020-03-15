@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.oliveira</groupId>
 	<artifactId>AddressService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>AddressService</name>
 	<description>Service to manipulate Addresses </description>
 
