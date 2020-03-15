@@ -12,7 +12,7 @@ import br.com.oliveira.address.entity.Address;
 import br.com.oliveira.address.repository.AddressRepository;
 
 @Service
-public class AddressServices {
+public class AddressService {
 
 	@Autowired
 	private AddressRepository repo;
@@ -50,7 +50,7 @@ public class AddressServices {
 	}
 	
 	public Long deleteAddressById(Long id) {
-		if(id!=null) {
+		if(id != null) {
 			repo.deleteById(id);
 		}
 		

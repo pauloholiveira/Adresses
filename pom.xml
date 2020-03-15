@@ -10,12 +10,15 @@
 	</parent>
 	<groupId>br.com.oliveira</groupId>
 	<artifactId>AddressService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>AddressService</name>
 	<description>Service to manipulate Addresses </description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>br.com.oliveira.address.AddressServiceApplication</start-class>
+		<docker.image.name>address/dockerize-address</docker.image.name>
+  		<docker.image.tag>latest</docker.image.tag>
 	</properties>
 
 	<dependencies>
@@ -42,6 +45,18 @@
 		    <artifactId>springdoc-openapi-webmvc-core</artifactId>
 		    <version>1.2.26</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.maps</groupId>
+		    <artifactId>google-maps-services</artifactId>
+		    <version>0.11.0</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-simple</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -61,6 +76,47 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+		
+		
+			<plugin>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <id>copy-resources</id>
+			            <phase>validate</phase>
+			            <goals>
+			                <goal>copy-resources</goal>
+			            </goals>
+			            <configuration>
+			                <outputDirectory>target</outputDirectory>
+			                <resources>
+			                    <resource>
+			                        <directory>target</directory>
+			                        <filtering>true</filtering>
+			                    </resource>
+			                </resources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			
+			<plugin>
+			    <groupId>com.spotify</groupId>
+			    <artifactId>docker-maven-plugin</artifactId>
+			    <version>0.4.10</version>
+			    <configuration>
+			        <imageName>${docker.image.name}:${docker.image.tag}</imageName>
+			        <dockerDirectory>target</dockerDirectory>
+			        <resources>
+			            <resource>
+			                <targetPath>target</targetPath>
+			                <directory>${project.build.directory}</directory>
+			                <include>${project.build.finalName}.jar</include>
+			            </resource>
+			        </resources>
+			    </configuration>
+			</plugin>
+		
 		</plugins>
 	</build>
 
