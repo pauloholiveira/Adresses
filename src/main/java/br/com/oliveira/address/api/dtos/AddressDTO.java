@@ -36,7 +36,7 @@ public class AddressDTO {
 			this.setCountry(address.getCountry());
 			this.setZipcode(address.getZipcode());
 			this.setLatitude(address.getLatitude());
-			this.setLongitude(address.getLatitude());
+			this.setLongitude(address.getLongitude());
     	}
 	}
     
@@ -109,5 +109,6 @@ public class AddressDTO {
 	
 	public static List<AddressDTO> converter(List<Address> adresses) {
 		return adresses.stream().map(address -> new AddressDTO(address)).collect(Collectors.toList());
+		
 	}
 }

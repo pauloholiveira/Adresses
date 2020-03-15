@@ -3,10 +3,10 @@ package br.com.oliveira.address;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class AddressServiceApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 

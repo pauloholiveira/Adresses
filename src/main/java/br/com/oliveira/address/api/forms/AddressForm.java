@@ -1,17 +1,27 @@
 package br.com.oliveira.address.api.forms;
 
+import javax.validation.constraints.NotNull;
+
 import br.com.oliveira.address.entity.Address;
 
 public class AddressForm {
 	private Long id;
+	@NotNull(message="Street Name cannot be missing or empty")
     private String streetName;
+	@NotNull(message="Number cannot be missing or empty")
     private String number;
     private String complement;
+    @NotNull(message="Neighbourhood cannot be missing or empty")
     private String neighbourhood;
+    @NotNull(message="City cannot be missing or empty")
     private String city;
+    @NotNull(message="State cannot be missing or empty")
     private String state;
+    @NotNull(message="Contry cannot be missing or empty")
     private String country;
+    @NotNull(message="Zipcode cannot be missing or empty")
     private String zipcode;
+    
     private String latitude;
     private String longitude;
     
@@ -96,7 +106,7 @@ public class AddressForm {
     	address.setCountry(this.getCountry());
     	address.setZipcode(this.getZipcode());
     	address.setLatitude(this.getLatitude());
-    	address.setLongitude(this.getLatitude());
+    	address.setLongitude(this.getLongitude());
     	
     	return address;
     }
