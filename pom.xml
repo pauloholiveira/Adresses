@@ -16,9 +16,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<start-class>br.com.oliveira.address.AddressServiceApplication</start-class>
-		<docker.image.name>address/dockerize-address</docker.image.name>
-  		<docker.image.tag>latest</docker.image.tag>
+		<!-- <start-class>br.com.oliveira.address.AddressServiceApplication</start-class> -->
+		<docker.image.name> paulooliveira/dockerize-address </docker.image.name>
+  		<docker.image.tag> latest </docker.image.tag>
 	</properties>
 
 	<dependencies>
@@ -78,6 +78,7 @@
 			</plugin>
 		
 		
+			
 			<plugin>
 			    <artifactId>maven-resources-plugin</artifactId>
 			    <executions>
@@ -88,10 +89,10 @@
 			                <goal>copy-resources</goal>
 			            </goals>
 			            <configuration>
-			                <outputDirectory>target</outputDirectory>
+			                <outputDirectory>${basedir}/target/dockerfile</outputDirectory>
 			                <resources>
 			                    <resource>
-			                        <directory>target</directory>
+			                        <directory>src/main/docker</directory>
 			                        <filtering>true</filtering>
 			                    </resource>
 			                </resources>
@@ -99,24 +100,23 @@
 			        </execution>
 			    </executions>
 			</plugin>
-			
+		
 			<plugin>
 			    <groupId>com.spotify</groupId>
 			    <artifactId>docker-maven-plugin</artifactId>
 			    <version>0.4.10</version>
 			    <configuration>
 			        <imageName>${docker.image.name}:${docker.image.tag}</imageName>
-			        <dockerDirectory>target</dockerDirectory>
+			        <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
 			        <resources>
 			            <resource>
-			                <targetPath>target</targetPath>
+			                <targetPath>/</targetPath>
 			                <directory>${project.build.directory}</directory>
 			                <include>${project.build.finalName}.jar</include>
 			            </resource>
 			        </resources>
 			    </configuration>
 			</plugin>
-		
 		</plugins>
 	</build>
 
